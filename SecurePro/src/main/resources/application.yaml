@@ -8,6 +8,13 @@ spring:
     active: prod
   security:
     enabled: false
+ 
+
+  # thymeleaf:
+  #   cache: false
+  #   prefix: classpath:/templates/
+  #   suffix: .html
+
   # JPA Configuration
   jpa:
     show-sql: true
