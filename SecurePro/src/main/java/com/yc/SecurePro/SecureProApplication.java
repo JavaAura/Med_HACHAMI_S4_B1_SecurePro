@@ -55,7 +55,7 @@ public class SecureProApplication {
 		};
 	}
 
-	@Bean
+	//@Bean
 	CommandLineRunner commandLineRunnerUserDetails(IAccountService accountService){
 		PasswordEncoder passwordEncoder = passwordEncoder();
 
