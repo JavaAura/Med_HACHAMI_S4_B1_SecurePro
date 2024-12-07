@@ -3,7 +3,6 @@ package com.yc.SecurePro.security;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -45,27 +44,27 @@ public class SecurityProdConfig {
     return authenticationManagerBuilder.build();
   }
 
-  // Configure Security Filter Chain
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http
-    .authorizeRequests()
-        .requestMatchers("/login", "/register").permitAll()
-        .anyRequest().authenticated() 
-        .and()
-    .formLogin()
-        .permitAll()
-    .and()
-    .logout()
-        .logoutUrl("/logout")
-        .logoutSuccessUrl("/login?logout")
-        .permitAll()
-    .and()
-    .sessionManagement()
-        .maximumSessions(1) 
-        .expiredUrl("/login?expired"); 
-    return http.build();
+      http
+          .authorizeHttpRequests(authz -> authz
+              .requestMatchers("/api/v1/auth/**").permitAll()
+              .anyRequest().authenticated()
+          )
+          .csrf(csrf -> csrf.disable())
+          .formLogin(form -> form.permitAll())
+          .logout(logout -> logout
+              .logoutUrl("/logout")
+              .logoutSuccessUrl("/login?logout")
+              .permitAll()
+          )
+          .sessionManagement(session -> session
+              .maximumSessions(1)
+              .expiredUrl("/login?expired")
+          );
+      return http.build();
   }
+  
 
   // JdbcUserDetailsManager to manage users
   @Bean

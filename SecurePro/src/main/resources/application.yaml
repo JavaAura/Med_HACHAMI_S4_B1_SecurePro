@@ -8,27 +8,30 @@ spring:
     active: prod
   security:
     enabled: false
- 
-
-  # thymeleaf:
-  #   cache: false
-  #   prefix: classpath:/templates/
-  #   suffix: .html
-
-  # JPA Configuration
+  datasource:
+    initialize: true
+    schema: classpath:schema.sql
+    data: classpath:data.sql
   jpa:
     show-sql: true
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
     properties:
       hibernate:
         format_sql: true
+    defer-datasource-initialize: true
+  sql:
+    init:
+      mode: always
 
 # Logging Configuration
 logging:
   level:
     root: INFO
     com.formations: INFO
+  org:
+    springframework:
+      security: DEBUG
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

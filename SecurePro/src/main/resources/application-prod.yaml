@@ -2,23 +2,9 @@ spring:
   config:
     activate:
       on-profile: prod
-  jpa:
-  properties:
-    hibernate:
-      dialect: org.hibernate.dialect.PostgreSQLDialect
-  hibernate:
-    ddl-auto: create
-
-
   datasource:
     url: ${URL_PROD}
     driver-class-name: org.postgresql.Driver
     username: ${DB_USERNAME_PROD}
     password: ${DB_PASSWORD_PROD}
-    initialize: true  # Ensures that schema is initialized (if not using Liquibase)
-
-  liquibase:
-    enabled: true
-    change-log: classpath:db/changelog/db.changelog-master.yaml
-
-
+    initialize: true
