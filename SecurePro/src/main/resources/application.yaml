@@ -1,5 +1,5 @@
 server:
-  port: 8085
+  port: 8083
 
 spring:
   application:
@@ -26,12 +26,22 @@ spring:
       mode: always
 
 # Logging Configuration
+# logging:
+#   level:
+#     root: INFO
+#     com.formations: INFO
+#   org:
+#     springframework:
+#       security: DEBUG
+#   pattern:
+#     console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+
 logging:
   level:
-    root: INFO
-    com.formations: INFO
-  org:
-    springframework:
-      security: DEBUG
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql: TRACE
