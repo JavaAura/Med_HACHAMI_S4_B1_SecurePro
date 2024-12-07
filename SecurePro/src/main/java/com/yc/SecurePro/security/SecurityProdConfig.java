@@ -46,23 +46,27 @@ public class SecurityProdConfig {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+     
       http
-          .authorizeHttpRequests(authz -> authz
-              .requestMatchers("/api/v1/auth/**").permitAll()
-              .anyRequest().authenticated()
-          )
-          .csrf(csrf -> csrf.disable())
-          .formLogin(form -> form.permitAll())
-          .logout(logout -> logout
-              .logoutUrl("/logout")
-              .logoutSuccessUrl("/login?logout")
-              .permitAll()
-          )
-          .sessionManagement(session -> session
-              .maximumSessions(1)
-              .expiredUrl("/login?expired")
-          );
-      return http.build();
+      .authorizeRequests(authz -> authz
+          .requestMatchers("/api/v1/auth/**").permitAll()
+          .requestMatchers("/api/admin/**").hasRole("ADMIN")  // Restrict access   to admin endpoints
+
+          .requestMatchers("/api/user/**").hasRole("USER")  // Restrict access to user endpoints
+          .anyRequest().authenticated()  // All other requests must be authenticated
+      )
+      .csrf(csrf -> csrf.disable())
+      .formLogin(form -> form.permitAll())
+      .logout(logout -> logout
+          .logoutUrl("/logout")  // Define logout URL
+          .logoutSuccessUrl("/login?logout")  // Redirect to login page with logout message
+          .permitAll()  // Allow all users to log out
+      )
+      .sessionManagement(session -> session
+          .maximumSessions(1)  // Limit to one active session per user
+          .expiredUrl("/login?expired")  // Redirect to login page when session expires
+      );
+  return http.build();
   }
   
 

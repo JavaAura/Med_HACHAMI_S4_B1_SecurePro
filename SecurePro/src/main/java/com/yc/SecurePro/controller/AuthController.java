@@ -22,6 +22,7 @@ public class AuthController {
         this.authService = authService;
     }
 
+
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody RegisterRequestDto request) {
         try {
