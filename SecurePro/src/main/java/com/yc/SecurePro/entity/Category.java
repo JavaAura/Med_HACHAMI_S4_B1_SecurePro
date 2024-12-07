@@ -1,15 +1,17 @@
 package com.yc.SecurePro.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="catgeories")
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +24,9 @@ public class Category {
     @Column(name = "description")
     @NotBlank(message = "Description is required")
     private String description;
+
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products;
 
     public Long getId() {
         return id;
@@ -47,6 +52,13 @@ public class Category {
         this.description = description;
     }
 
-    // @OneToMany(mappedBy = "categorie", cascade = CascadeType.ALL)
-    // private List<Produits> produits;
+
+    public List<Product> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
 }

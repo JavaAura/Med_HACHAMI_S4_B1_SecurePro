@@ -1,6 +1,7 @@
 package com.yc.SecurePro.exception;
 
 
+import jakarta.persistence.OptimisticLockException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.hibernate.ObjectNotFoundException;
+import org.hibernate.StaleObjectStateException;
 import org.hibernate.exception.SQLGrammarException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -168,6 +170,13 @@ public class GlobalExceptionHandler  extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(errorRes, status);
     }
+
+    @ExceptionHandler({OptimisticLockException.class, StaleObjectStateException.class})
+    public ResponseEntity<Object> handleConcurrencyException(RuntimeException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body("The resource was modified by another transaction. Please reload and try again.");
+    }
+
 
 
 
