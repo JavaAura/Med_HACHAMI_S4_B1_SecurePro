@@ -1,33 +1,45 @@
 version: '3.8'
 services:
-  app:
+  shopapi:
     build:
       context: .
       dockerfile: Dockerfile
+    container_name: securepro_app
     ports:
-      - "8089:8089"
-    depends_on:
-      - db
+      - "${APP_PORT}:${APP_PORT}"
     environment:
+      SPRING_PROFILES_ACTIVE: prod
       SPRING_DATASOURCE_URL: ${URL_PROD}
       SPRING_DATASOURCE_USERNAME: ${DB_USERNAME_PROD}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD_PROD}
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_DDL_AUTO: validate
+      APP_PORT: ${APP_PORT}
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: ${DRIVER_NAME}
+    depends_on:
+      - db
+    networks:
+      - securepro_api
 
   db:
-    image: postgres:15
-    container_name: postgres-db
+    image: mariadb:latest 
+    container_name: mysql-db
     volumes:
-      - postgres-data:/var/lib/postgresql/data
+      - mysql-data:/var/lib/mysql 
     environment:
-      POSTGRES_USER: ${DB_USERNAME_PROD}
-      PGUSER: ${DB_USERNAME_PROD}
-      PGPASSWORD: ${ROOT_PASSWORD}
-      POSTGRES_PASSWORD: ${DB_PASSWORD_PROD}
-      POSTGRES_DB: ${DB_NAME_PROD}
-      PGDATA: /data/postgres
+      MYSQL_ROOT_PASSWORD: root 
+      MYSQL_DATABASE: ${DB_NAME_PROD} 
+      MYSQL_USER: ${DB_USERNAME_PROD} 
+      MYSQL_PASSWORD: ${DB_PASSWORD_PROD} 
     ports:
-      - "5432:5432"
+      - "3306:3306" 
+    networks:
+      - securepro_api
+    command:
+      --bind-address=0.0.0.0  
 
 volumes:
-  postgres-data:
+  mysql-data: 
+
+networks:
+  securepro_api:
+    driver: bridge

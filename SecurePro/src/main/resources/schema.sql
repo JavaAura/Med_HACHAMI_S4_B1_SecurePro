@@ -1,3 +1,5 @@
+CREATE USER IF NOT EXISTS 'root'@'%' IDENTIFIED BY 'root';
+   
     CREATE TABLE IF NOT EXISTS users (
         username varchar(255) NOT NULL PRIMARY KEY,
         password varchar(455) NOT NULL,

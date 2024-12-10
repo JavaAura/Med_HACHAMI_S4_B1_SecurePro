@@ -14,6 +14,6 @@ spring:
 
   datasource:
     url: ${URL_DEV}
-    driver-class-name: org.h2.Driver
+    driver-class-name: ${DB_DRIVER_DEV}
     username: ${DB_USERNAME_DEV}
     password: ${DB_PASSWORD_DEV}

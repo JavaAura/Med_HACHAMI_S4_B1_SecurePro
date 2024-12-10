@@ -3,8 +3,8 @@ spring:
     activate:
       on-profile: prod
   datasource:
-    url: ${URL_PROD}
-    driver-class-name: org.postgresql.Driver
-    username: ${DB_USERNAME_PROD}
-    password: ${DB_PASSWORD_PROD}
+    url: ${SPRING_DATASOURCE_URL}
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER_CLASS_NAME}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     initialize: true

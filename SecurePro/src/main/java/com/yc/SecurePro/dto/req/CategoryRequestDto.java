@@ -3,6 +3,7 @@ package com.yc.SecurePro.dto.req;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+
 public class CategoryRequestDto {
     private Long id;
 
@@ -15,8 +16,9 @@ public class CategoryRequestDto {
 
     public CategoryRequestDto() {}
 
-    public CategoryRequestDto(Long id, String name, String description) {
-        this.id = id;
+
+
+    public CategoryRequestDto( String name, String description) {
         this.name = name;
         this.description = description;
     }

@@ -18,9 +18,6 @@ public class CategoryValidator {
         if (id == null) {
             throw new IllegalArgumentException("Id cannot be null");
         }
-        if (request == null) {
-            throw new RuntimeException("Categories request cannot be null");
-        }
         validateName(request.getName());
     }
 

@@ -25,8 +25,15 @@ public class Category {
     @NotBlank(message = "Description is required")
     private String description;
 
+
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Product> products;
+
+    public Category(Long id, String name,String description){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
 
     public Long getId() {
         return id;
