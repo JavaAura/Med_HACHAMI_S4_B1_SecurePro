@@ -125,4 +125,3 @@ The SecurePro API delivers a comprehensive solution for efficient management of 
 - **Lombok**: For reducing boilerplate code.
 - **Docker**: For containerized deployment.
 - **Jenkins**: For CI/CD pipeline management.
-- **Kubernetes**: For managing and orchestrating containerized applications.
