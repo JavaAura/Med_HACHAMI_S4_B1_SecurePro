@@ -11,4 +11,4 @@ COPY target/SecurePro-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE ${APP_PORT}
 
 # Run the application
-ENTRYPOINT ["java", "-jar", ,"-Dserver.port=${APP_PORT}", "app.jar"]
+ENTRYPOINT ["java", "-jar", "-Dserver.port=${APP_PORT}", "app.jar"]
